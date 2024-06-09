@@ -1,0 +1,194 @@
+<!-- templates/operacoes_criptoativos/formulario_form.html -->
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">{{ title }}</div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="cliente">Cliente</label>
+                            <select name="cliente" id="cliente" class="form-control">
+                                {% for cliente in form.cliente.field.queryset %}
+                                    <option value="{{ cliente.id }}" {% if cliente.id == form.cliente.value %}selected{% endif %}>{{ cliente.nome }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if form.cliente.help_text %}
+                                <small class="form-text text-muted">{{ form.cliente.help_text }}</small>
+                            {% endif %}
+                            {% if form.cliente.errors %}
+                                <div class="text-danger">
+                                    {{ form.cliente.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo_registro">Tipo de Registro</label>
+                            <select name="tipo_registro" id="tipo_registro" class="form-control">
+                                {% for key, value in form.tipo_registro.field.choices %}
+                                    <option value="{{ key }}" {% if key == form.tipo_registro.value %}selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if form.tipo_registro.help_text %}
+                                <small class="form-text text-muted">{{ form.tipo_registro.help_text }}</small>
+                            {% endif %}
+                            {% if form.tipo_registro.errors %}
+                                <div class="text-danger">
+                                    {{ form.tipo_registro.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="data_operacao">Data da Operação</label>
+                            <input type="date" name="data_operacao" id="data_operacao" class="form-control" value="{{ form.data_operacao.value }}">
+                            {% if form.data_operacao.help_text %}
+                                <small class="form-text text-muted">{{ form.data_operacao.help_text }}</small>
+                            {% endif %}
+                            {% if form.data_operacao.errors %}
+                                <div class="text-danger">
+                                    {{ form.data_operacao.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="codigo_operacao">Código de Operação</label>
+                            <select name="codigo_operacao" id="codigo_operacao" class="form-control">
+                                {% for key, value in form.codigo_operacao.field.choices %}
+                                    <option value="{{ key }}" {% if key == form.codigo_operacao.value %}selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if form.codigo_operacao.help_text %}
+                                <small class="form-text text-muted">{{ form.codigo_operacao.help_text }}</small>
+                            {% endif %}
+                            {% if form.codigo_operacao.errors %}
+                                <div class="text-danger">
+                                    {{ form.codigo_operacao.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo_ni">Tipo de NI</label>
+                            <select name="tipo_ni" id="tipo_ni" class="form-control">
+                                {% for key, value in form.tipo_ni.field.choices %}
+                                    <option value="{{ key }}" {% if key == form.tipo_ni.value %}selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if form.tipo_ni.help_text %}
+                                <small class="form-text text-muted">{{ form.tipo_ni.help_text }}</small>
+                            {% endif %}
+                            {% if form.tipo_ni.errors %}
+                                <div class="text-danger">
+                                    {{ form.tipo_ni.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="valor_operacao">Valor da Operação</label>
+                            <input type="number" step="0.01" name="valor_operacao" id="valor_operacao" class="form-control" value="{{ form.valor_operacao.value }}">
+                            {% if form.valor_operacao.help_text %}
+                                <small class="form-text text-muted">{{ form.valor_operacao.help_text }}</small>
+                            {% endif %}
+                            {% if form.valor_operacao.errors %}
+                                <div class="text-danger">
+                                    {{ form.valor_operacao.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="valor_taxas">Valor das Taxas</label>
+                            <input type="number" step="0.01" name="valor_taxas" id="valor_taxas" class="form-control" value="{{ form.valor_taxas.value }}">
+                            {% if form.valor_taxas.help_text %}
+                                <small class="form-text text-muted">{{ form.valor_taxas.help_text }}</small>
+                            {% endif %}
+                            {% if form.valor_taxas.errors %}
+                                <div class="text-danger">
+                                    {{ form.valor_taxas.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="simbolo_criptoativo">Símbolo do Criptoativo</label>
+                            <input type="text" name="simbolo_criptoativo" id="simbolo_criptoativo" class="form-control" value="{{ form.simbolo_criptoativo.value }}">
+                            {% if form.simbolo_criptoativo.help_text %}
+                                <small class="form-text text-muted">{{ form.simbolo_criptoativo.help_text }}</small>
+                            {% endif %}
+                            {% if form.simbolo_criptoativo.errors %}
+                                <div class="text-danger">
+                                    {{ form.simbolo_criptoativo.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="quantidade_criptoativo">Quantidade de Criptoativo</label>
+                            <input type="number" step="0.0000000001" name="quantidade_criptoativo" id="quantidade_criptoativo" class="form-control" value="{{ form.quantidade_criptoativo.value }}">
+                            {% if form.quantidade_criptoativo.help_text %}
+                                <small class="form-text text-muted">{{ form.quantidade_criptoativo.help_text }}</small>
+                            {% endif %}
+                            {% if form.quantidade_criptoativo.errors %}
+                                <div class="text-danger">
+                                    {{ form.quantidade_criptoativo.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="numero_nota_fiscal">Número da Nota Fiscal</label>
+                            <input type="text" name="numero_nota_fiscal" id="numero_nota_fiscal" class="form-control" value="{{ form.numero_nota_fiscal.value }}">
+                            {% if form.numero_nota_fiscal.help_text %}
+                                <small class="form-text text-muted">{{ form.numero_nota_fiscal.help_text }}</small>
+                            {% endif %}
+                            {% if form.numero_nota_fiscal.errors %}
+                                <div class="text-danger">
+                                    {{ form.numero_nota_fiscal.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="hash_criptoativo">Hash do Criptoativo</label>
+                            <textarea name="hash_criptoativo" id="hash_criptoativo" class="form-control">{{ form.hash_criptoativo.value }}</textarea>
+                            {% if form.hash_criptoativo.help_text %}
+                                <small class="form-text text-muted">{{ form.hash_criptoativo.help_text }}</small>
+                            {% endif %}
+                            {% if form.hash_criptoativo.errors %}
+                                <div class="text-danger">
+                                    {{ form.hash_criptoativo.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <a href="{% url 'formulario_list' %}" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const tipoRegistroField = document.getElementById('tipo_registro');
+    const codigoOperacaoField = document.getElementById('codigo_operacao');
+
+    tipoRegistroField.addEventListener('change', function() {
+        const tipoRegistro = tipoRegistroField.value;
+        let codigoOperacao = '';
+
+        if (tipoRegistro === '0110') {
+            codigoOperacao = 'I';
+        } else if (tipoRegistro === '0210') {
+            codigoOperacao = 'II';
+        } else if (tipoRegistro === '0410') {
+            codigoOperacao = 'IV';
+        } else if (tipoRegistro === '0510') {
+            codigoOperacao = 'V';
+        } else if (tipoRegistro === '0710') {
+            codigoOperacao = 'VII';
+        }
+
+        codigoOperacaoField.value = codigoOperacao;
+    });
+</script>
+{% endblock %}

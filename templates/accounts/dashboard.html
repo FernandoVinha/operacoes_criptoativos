@@ -1,0 +1,49 @@
+<!-- templates/accounts/dashboard.html -->
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Bem-vindo, {{ user.get_full_name }}!</h1>
+    <p>Este é o seu painel de controle.</p>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Clientes</h5>
+                    <p class="card-text">Gerencie seus clientes.</p>
+                    <a href="{% url 'list_clientes' %}" class="btn btn-primary">Ver Clientes</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Formulários</h5>
+                    <p class="card-text">Gerencie seus formulários.</p>
+                    <a href="{% url 'formulario_list' %}" class="btn btn-primary">Ver Formulários</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Formulários Finais</h5>
+                    <p class="card-text">Gerencie seus formulários finais.</p>
+                    <a href="{% url 'formulario_final_list' %}" class="btn btn-primary">Ver Formulários Finais</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Perfil</h5>
+                    <p class="card-text">Atualize suas informações de perfil.</p>
+                    <a href="{% url 'edit_profile' %}" class="btn btn-primary">Editar Perfil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

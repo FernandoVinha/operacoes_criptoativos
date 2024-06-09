@@ -1,0 +1,27 @@
+<!-- operacoes_criptoativos/formulario_final_confirm_delete.html -->
+{% extends 'base.html' %}
+
+{% block title %}Confirmar Exclusão do Formulário Final{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Confirmar Exclusão</div>
+                <div class="card-body">
+                    <p>Tem certeza de que deseja excluir o formulário final abaixo?</p>
+                    <p><strong>ID:</strong> {{ formulario_final.id }}</p>
+                    <p><strong>Data Inicial:</strong> {{ formulario_final.data_inicial }}</p>
+                    <p><strong>Data Final:</strong> {{ formulario_final.data_final }}</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                        <a href="{% url 'formulario_final_list' %}" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

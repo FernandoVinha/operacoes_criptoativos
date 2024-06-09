@@ -1,0 +1,86 @@
+<!-- accounts/templates/accounts/edit_profile.html -->
+{% extends 'base.html' %}
+
+{% block title %}Editar Perfil{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Editar Perfil</div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="email">Endereço de e-mail</label>
+                            <input type="email" name="email" id="email" class="form-control" value="{{ form.email.value }}">
+                            {% if form.email.errors %}
+                                <div class="text-danger">
+                                    {{ form.email.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="nome_corretora">Nome da Corretora</label>
+                            <input type="text" name="nome_corretora" id="nome_corretora" class="form-control" value="{{ form.nome_corretora.value }}">
+                            {% if form.nome_corretora.errors %}
+                                <div class="text-danger">
+                                    {{ form.nome_corretora.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="cnpj">CNPJ</label>
+                            <input type="text" name="cnpj" id="cnpj" class="form-control" value="{{ form.cnpj.value }}" maxlength="14" pattern="\d*" title="Somente números são permitidos">
+                            {% if form.cnpj.errors %}
+                                <div class="text-danger">
+                                    {{ form.cnpj.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="url">URL</label>
+                            <input type="url" name="url" id="url" class="form-control" value="{{ form.url.value }}">
+                            {% if form.url.errors %}
+                                <div class="text-danger">
+                                    {{ form.url.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="endereco">Endereço</label>
+                            <input type="text" name="endereco" id="endereco" class="form-control" value="{{ form.endereco.value }}">
+                            {% if form.endereco.errors %}
+                                <div class="text-danger">
+                                    {{ form.endereco.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="pais">País</label>
+                            <input type="text" name="pais" id="pais" class="form-control" value="{{ form.pais.value }}" maxlength="2" style="text-transform: uppercase;">
+                            {% if form.pais.errors %}
+                                <div class="text-danger">
+                                    {{ form.pais.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('cnpj').addEventListener('input', function (e) {
+        this.value = this.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+    });
+
+    document.getElementById('pais').addEventListener('input', function (e) {
+        this.value = this.value.toUpperCase(); // Converte o valor para maiúsculas
+    });
+</script>
+{% endblock %}

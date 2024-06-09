@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Formulários{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Lista de Formulários</h1>
+    <a href="{% url 'create_formulario' %}" class="btn btn-primary mb-3">Adicionar Novo Formulário</a>
+    <a href="{% url 'create_formulario_final' %}" class="btn btn-success mb-3">Criar Formulário Final</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tipo de Registro</th>
+                <th>Data da Operação</th>
+                <th>Código de Operação</th>
+                <th>Valor da Operação</th>
+                <th>Valor das Taxas</th>
+                <th>Simbolo Criptoativo</th>
+                <th>Quantidade Criptoativo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for formulario in formularios %}
+            <tr>
+                <td>{{ formulario.tipo_registro }}</td>
+                <td>{{ formulario.data_operacao }}</td>
+                <td>{{ formulario.codigo_operacao }}</td>
+                <td>{{ formulario.valor_operacao }}</td>
+                <td>{{ formulario.valor_taxas }}</td>
+                <td>{{ formulario.simbolo_criptoativo }}</td>
+                <td>{{ formulario.quantidade_criptoativo }}</td>
+                <td>
+                    <a href="{% url 'edit_formulario' formulario.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                    <a href="{% url 'delete_formulario' formulario.pk %}" class="btn btn-sm btn-danger">Deletar</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8">{{ formulario.registro }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

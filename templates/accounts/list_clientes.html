@@ -1,0 +1,34 @@
+<!-- templates/accounts/list_clientes.html -->
+{% extends 'base.html' %}
+
+{% block title %}Lista de Clientes{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Lista de Clientes</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF/CNPJ ou Passaporte</th>
+                <th>País</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+            <tr>
+                <td>{{ cliente.nome }}</td>
+                <td>{{ cliente.cpf_cnpj }}</td>
+                <td>{{ cliente.pais }}</td>
+                <td>
+                    <a href="{% url 'edit_cliente' cliente.id %}" class="btn btn-sm btn-primary">Editar</a>
+                    <a href="{% url 'delete_cliente' cliente.id %}" class="btn btn-sm btn-danger">Deletar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'create_cliente' %}" class="btn btn-success">Adicionar Novo Cliente</a>
+</div>
+{% endblock %}

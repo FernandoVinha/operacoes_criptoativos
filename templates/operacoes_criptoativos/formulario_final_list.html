@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Formulários Finais{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Formulários Finais</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data Inicial</th>
+                <th>Data Final</th>
+                <th>Arquivo Final</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for formulario_final in formularios_finais %}
+            <tr>
+                <td>{{ formulario_final.id }}</td>
+                <td>{{ formulario_final.data_inicial }}</td>
+                <td>{{ formulario_final.data_final }}</td>
+                <td><a href="{% url 'download_formulario_final' formulario_final.pk %}">Download</a></td>
+                <td>
+                    <a href="{% url 'edit_formulario_final' formulario_final.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                    <a href="{% url 'delete_formulario_final' formulario_final.pk %}" class="btn btn-sm btn-danger">Deletar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
