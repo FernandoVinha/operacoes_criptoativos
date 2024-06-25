@@ -129,7 +129,7 @@ class FormularioFinalViewSet(viewsets.ModelViewSet):
     queryset = FormularioFinal.objects.all()
 
     def get_queryset(self):
-        return FormularioFinal.objects.filter(usuario(self.request.user)
+        return FormularioFinal.objects.filter(usuario=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(usuario=self.request.user)
