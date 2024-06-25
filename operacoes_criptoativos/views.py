@@ -112,10 +112,16 @@ def list_formularios_finais(request):
 def download_formulario_final(request, pk):
     formulario_final = get_object_or_404(FormularioFinal, pk=pk, usuario=request.user)
     filepath = formulario_final.arquivo_final.path
-    with open(filepath, 'rb') as f:
-        response = HttpResponse(f.read(), content_type='application/text')
-        response['Content-Disposition'] = f'attachment; filename={os.path.basename(filepath)}'
-        return response
+
+    # Adicionar CR e LF ao final de cada linha
+    corrected_content = []
+    with open(filepath, 'r') as f:
+        for line in f:
+            corrected_content.append(line.strip() + '\r\n')
+    
+    response = HttpResponse(''.join(corrected_content), content_type='application/text')
+    response['Content-Disposition'] = f'attachment; filename={os.path.basename(filepath)}'
+    return response
 
 class FormularioFinalViewSet(viewsets.ModelViewSet):
     serializer_class = FormularioFinalSerializer
@@ -123,7 +129,7 @@ class FormularioFinalViewSet(viewsets.ModelViewSet):
     queryset = FormularioFinal.objects.all()
 
     def get_queryset(self):
-        return FormularioFinal.objects.filter(usuario=self.request.user)
+        return FormularioFinal.objects.filter(usuario(self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(usuario=self.request.user)
